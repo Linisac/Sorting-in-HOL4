@@ -1,4 +1,4 @@
-open listTheory relationTheory;
+open listTheory arithmeticTheory bossLib;
 
 val _ = new_theory "chaptertwo";
 
@@ -106,11 +106,13 @@ QED
  *===== QUICKSORT =====*
  *=====================*)
 
-(* not working...need to show termination *)
+(* not working... need to show termination *)
 Definition quicksort_def:
   (quicksort R [] = []) /\
   (quicksort R (x::xs) =
     quicksort R (FILTER (\y. R y x) xs ++ [x] ++ quicksort R (FILTER (\y. ~R y x) xs)))
+Termination
+  cheat
 End
 
 (*===============================*
@@ -127,10 +129,37 @@ Definition mergeaux_def:
       y::(mergeaux R (x::xs) ys))
 End
 
+(* not working... need to show termination *)
 Definition mergesort_def:
-  mergesort R xs = (let n = LENGTH xs in
-    if n <= 1 then
-      xs
-    else
-      mergeaux (mergesort R (TAKE (DIV n 2)) xs) (mergesort R (DROP (DIV n 2)) xs)
+  mergesort R xs = (let n = (LENGTH xs) in (
+      if n <= 1 then xs
+      else mergeaux R (mergesort R (TAKE (n DIV 2) xs)) ( mergesort R (DROP (n DIV 2) xs) )
+    )
+  )
+Termination
+  cheat
 End
+
+(*================================*
+ *===== Bottom-Up Merge Sort =====*
+ *================================*)
+
+Definition mergeadj_def:
+  (mergeadj R [] = []) /\
+  (mergeadj R [xs] = [xs]) /\
+  (mergeadj R (x::y::zs) = (mergeaux R x y) :: (mergeadj R zs))
+End
+
+(* not working... need to show termination *)
+Definition mergeall_def:
+  (mergeall R [] = []) /\
+  (mergeall R [xs] = xs) /\
+  (mergeall R xss = mergeall R (mergeadj R xss))
+Termination
+  cheat
+End
+
+Definition mergesort_def':
+  mergesort R xs = mergeall R (MAP (\x. [x]) xs)
+End
+
