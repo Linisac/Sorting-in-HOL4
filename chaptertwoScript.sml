@@ -1,4 +1,7 @@
-open listTheory arithmeticTheory bossLib;
+open HolKernel Parse boolLib;
+open bossLib;
+open listTheory rich_listTheory;
+open arithmeticTheory dividesTheory;
 
 val _ = new_theory "chaptertwo";
 
@@ -56,7 +59,7 @@ Proof
         pure_rewrite_tac[OR_CLAUSES] >> 
         pop_assum (fn x => pure_rewrite_tac[x]) >> 
         strip_tac >> strip_tac >> 
-        REFL_TAC
+        fs[]
       )
 QED
 
@@ -106,18 +109,43 @@ QED
  *===== QUICKSORT =====*
  *=====================*)
 
-(* not working... need to show termination *)
 Definition quicksort_def:
   (quicksort R [] = []) /\
   (quicksort R (x::xs) =
-    quicksort R (FILTER (\y. R y x) xs ++ [x] ++ quicksort R (FILTER (\y. ~R y x) xs)))
+    quicksort R (FILTER (\y. R y x) xs) ++ [x] ++ quicksort R (FILTER (\y. ~R y x) xs))
 Termination
-  cheat
+  WF_REL_TAC `measure (\x. LENGTH (SND x))` >>
+  rw[LENGTH]
+  >- ( 
+        qspecl_then [`(\y. ~(R y x))`,`xs`] assume_tac LENGTH_FILTER_LEQ >>
+        decide_tac
+    )
+  >- (
+        qspecl_then [`(\y. R y x)`, `xs`] assume_tac LENGTH_FILTER_LEQ >>
+        decide_tac
+    )
 End
 
 (*===============================*
  *===== Top-Down Merge Sort =====*
  *===============================*)
+
+Theorem LEQ_TWO_DIV_LEQ_ZERO:
+  !n. n >= 2 ==> n DIV 2 > 0
+Proof
+  strip_tac >>
+  disch_tac >>
+  qspecl_then [`1`, `n`, `2`] assume_tac X_LE_DIV >>
+  fs[]
+QED
+
+Theorem LENGTH_DIV_TWO_LT:
+  LENGTH l >= 2 ==> LENGTH l DIV 2 < LENGTH l
+Proof
+  rpt strip_tac >>
+  match_mp_tac DIV_LESS >>
+  simp[]
+QED
 
 Definition mergeaux_def:
   (mergeaux R [] ys = ys) /\
@@ -129,7 +157,6 @@ Definition mergeaux_def:
       y::(mergeaux R (x::xs) ys))
 End
 
-(* not working... need to show termination *)
 Definition mergesort_def:
   mergesort R xs = (let n = (LENGTH xs) in (
       if n <= 1 then xs
@@ -137,7 +164,28 @@ Definition mergesort_def:
     )
   )
 Termination
-  cheat
+  WF_REL_TAC `measure (\x . LENGTH (SND x))` >>
+  rw[LENGTH_TAKE, LENGTH_DROP]
+  >- (
+    `LENGTH xs >= 2` by decide_tac >>
+    qspecl_then [`LENGTH xs`] assume_tac LEQ_TWO_DIV_LEQ_ZERO >>
+    res_tac >> res_tac >>
+    pure_rewrite_tac[GSYM GREATER_DEF] >>
+    res_tac
+    )
+  >- (
+    `LENGTH xs >= 2` by decide_tac >>
+    `LENGTH xs DIV 2 < LENGTH xs` by (
+        match_mp_tac DIV_LESS >>
+        decide_tac 
+      ) >>
+    qspecl_then [`LENGTH xs DIV 2`, `xs`] assume_tac LENGTH_TAKE >>
+    `LENGTH xs DIV 2 <= LENGTH xs` by decide_tac >>
+    res_tac >>
+    pop_assum (fn x => pure_rewrite_tac[x]) >>
+    (* need to reorder assumptions... will use fs[] instead *)
+    fs[]
+    )
 End
 
 (*================================*
@@ -150,16 +198,67 @@ Definition mergeadj_def:
   (mergeadj R (x::y::zs) = (mergeaux R x y) :: (mergeadj R zs))
 End
 
-(* not working... need to show termination *)
+Theorem LENGTH_mergeaux:
+  !R l. LENGTH (mergeadj R l) < SUC (LENGTH l)
+Proof
+  ho_match_mp_tac mergeadj_ind >>
+  rw[mergeadj_def]
+  (* There's no need to split cases *)
+QED
+
 Definition mergeall_def:
   (mergeall R [] = []) /\
   (mergeall R [xs] = xs) /\
   (mergeall R xss = mergeall R (mergeadj R xss))
 Termination
-  cheat
+  WF_REL_TAC `measure (LENGTH o SND)` >>
+  pure_rewrite_tac[LENGTH, mergeadj_def, mergeaux_def] >>
+  rpt strip_tac >>
+  rw[] >> 
+  metis_tac[LENGTH_mergeaux]
 End
 
 Definition mergesort_def':
   mergesort R xs = mergeall R (MAP (\x. [x]) xs)
 End
 
+(*==============================*
+ *===== Natural Merge Sort =====*
+ *==============================*)
+
+Definition naturalaux_def:
+  (asc R a as [] = [ (as [a]) ]) /\
+  (asc R a as (b::bs) =
+    if ~(R a b) then
+      asc R b (as o CONS a) bs
+    else
+      as [a] :: runs R (b::bs) )
+  /\
+  (runs R [] = []) /\
+  (runs R [x] = [[x]]) /\
+  (runs R (a::b::xs) =
+    if R a b then
+      desc R b [a] xs
+    else
+      asc R b (CONS a) xs)
+  /\
+  (desc R a as [] = [a::as]) /\
+  (desc R a as (b::bs) = 
+    if R a b then 
+      desc R b (a::as) bs
+    else
+      (a::as) :: runs R (b::bs))
+Termination
+  WF_REL_TAC `measure (\x. case x of
+      | INL (R,a,as,l) => list_size foo l + 1
+      | INR (INL (R, l)) => list_size foo l
+      | INR (INR (R,a, as, l)) => list_size foo l + 1
+    )` >>
+  rw[]
+End
+
+Definition naturalmerge_def:
+  naturalmerge R xs = mergeall R (runs R xs)
+End
+
+val _ = export_theory();

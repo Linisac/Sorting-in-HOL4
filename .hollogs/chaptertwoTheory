@@ -1,0 +1,31 @@
+<<HOL message: Created theory "chaptertwo">>
+Saved definition ____ "insertaux_def"
+Saved definition ____ "insertionsort_def"
+Saved theorem _______ "MEM_insertaux"
+Saved theorem _______ "MEM_insertionsort"
+Saved theorem _______ "MEM_insertionsort'"
+Saved theorem _______ "LENGTH_insertaux"
+Saved theorem _______ "LENGTH_insertionsort"
+Saved definition ____ "quicksort_def"
+Saved induction _____ "quicksort_ind"
+Saved theorem _______ "LEQ_TWO_DIV_LEQ_ZERO"
+Saved theorem _______ "LENGTH_DIV_TWO_LT"
+Saved definition ____ "mergeaux_def"
+Saved induction _____ "mergeaux_ind"
+Saved definition ____ "mergesort_def"
+Saved induction _____ "mergesort_ind"
+Saved definition ____ "mergeadj_def"
+Saved induction _____ "mergeadj_ind"
+Saved theorem _______ "LENGTH_mergeaux"
+Saved definition ____ "mergeall_def"
+Saved induction _____ "mergeall_ind"
+<<HOL warning: ThmSetData.revise_data: 
+  Theorems in set "compute":
+    ADD<chaptertwo$mergesort_def>
+  invalidated by NewConstant(chaptertwo$mergesort)>>
+Saved definition ____ "mergesort_def'"
+Saved definition ____ "naturalaux_def"
+Saved induction _____ "naturalaux_ind"
+Saved definition ____ "naturalmerge_def"
+Exporting theory "chaptertwo" ... done.
+Theory "chaptertwo" took 0.98532s to build
