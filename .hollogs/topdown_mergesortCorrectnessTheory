@@ -1,0 +1,12 @@
+<<HOL message: Created theory "topdown_mergesortCorrectness">>
+Saved definition ____ "TOP_DOWN_MERGEAUXILLARY_def"
+Saved induction _____ "TOP_DOWN_MERGEAUXILLARY_ind"
+Saved definition ____ "TOP_DOWN_MERGESORT_def"
+Saved induction _____ "TOP_DOWN_MERGESORT_ind"
+Saved theorem _______ "MEM_TOP_DOWN_MERGEAUXILLARY_lemma"
+Saved theorem _______ "SORTED_MERGEAUXILLARY_lemma"
+Saved theorem _______ "CORRECTNESS_SORTED_TOP_DOWN_MERGESORT_thm"
+Saved theorem _______ "MSET_MERGEAUXILLARY_lemma"
+Saved theorem _______ "CORRECTNESS_MSET_TOP_DOWN_MERGESORT_thm"
+Exporting theory "topdown_mergesortCorrectness" ... done.
+Theory "topdown_mergesortCorrectness" took 0.55464s to build

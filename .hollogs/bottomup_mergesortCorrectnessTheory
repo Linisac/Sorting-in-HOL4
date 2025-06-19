@@ -1,0 +1,19 @@
+<<HOL message: Created theory "bottomup_mergesortCorrectness">>
+Saved definition ____ "BOTTOM_UP_MERGEAUXILLARY_def"
+Saved induction _____ "BOTTOM_UP_MERGEAUXILLARY_ind"
+Saved definition ____ "BOTTOM_UP_MERGEADJACENT_def"
+Saved induction _____ "BOTTOM_UP_MERGEADJACENT_ind"
+Saved definition ____ "BOTTOM_UP_MERGEALL_def"
+Saved induction _____ "BOTTOM_UP_MERGEALL_ind"
+Saved definition ____ "BOTTOM_UP_MERGESORT_def"
+Saved theorem _______ "MEM_BOTTOM_UP_MERGEAUXILLARY_lemma"
+Saved theorem _______ "SORTED_BOTTOM_UP_MERGEAUXILLARY_lemma"
+Saved theorem _______ "SORTED_BOTTOM_UP_MERGEADJACENT_lemma"
+Saved theorem _______ "BOTTOM_UP_MERGEALL_MAP_lemma"
+Saved theorem _______ "CORRECTNESS_SORTED_BOTTOM_UP_MERGESORT_thm"
+Saved theorem _______ "MSET_BOTTOM_UP_MERGEAUXILLARY_lemma"
+Saved theorem _______ "MSET_BOTTOM_UP_MERGEADJACENT_lemma"
+Saved theorem _______ "MSET_BOTTOM_UP_MERGEALL_lemma"
+Saved theorem _______ "CORRECTNESS_MSET_BOTTOM_UP_MERGESORT_thm"
+Exporting theory "bottomup_mergesortCorrectness" ... done.
+Theory "bottomup_mergesortCorrectness" took 0.77666s to build
