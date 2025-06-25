@@ -16,4 +16,4 @@ Saved theorem _______ "MSET_BOTTOM_UP_MERGEADJACENT_lemma"
 Saved theorem _______ "MSET_BOTTOM_UP_MERGEALL_lemma"
 Saved theorem _______ "CORRECTNESS_MSET_BOTTOM_UP_MERGESORT_thm"
 Exporting theory "bottomup_mergesortCorrectness" ... done.
-Theory "bottomup_mergesortCorrectness" took 0.77666s to build
+Theory "bottomup_mergesortCorrectness" took 1.1s to build

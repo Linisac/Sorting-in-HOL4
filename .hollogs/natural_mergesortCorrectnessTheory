@@ -1,0 +1,23 @@
+<<HOL message: Created theory "natural_mergesortCorrectness">>
+Saved definition ____ "NATURAL_MERGEAUXILLARY_def"
+Saved induction _____ "NATURAL_MERGEAUXILLARY_ind"
+Saved definition ____ "NATURAL_MERGEADJACENT_def"
+Saved induction _____ "NATURAL_MERGEADJACENT_ind"
+Saved definition ____ "NATURAL_MERGEALL_def"
+Saved induction _____ "NATURAL_MERGEALL_ind"
+Saved definition ____ "NATURAL_MERGE_ASC_RUNS_DESC_def"
+Saved induction _____ "NATURAL_MERGE_ASC_RUNS_DESC_ind"
+Saved definition ____ "NATURAL_MERGESORT_def"
+Saved theorem _______ "EVERY_SORTED_ASC_RUNS_DESC_lemma"
+Saved theorem _______ "MEM_NATURAL_MERGEAUXILLARY_lemma"
+Saved theorem _______ "SORTED_NATURAL_MERGEAUXILLARY_lemma"
+Saved theorem _______ "SORTED_NATURAL_MERGEADJACENT_lemma"
+Saved theorem _______ "SORTED_NATURAL_MERGEALL_lemma"
+Saved theorem _______ "CORRECTNESS_SORTED_NATURAL_MERGESORT"
+Saved theorem _______ "MSET_FLAT_ASC_RUNS_DESC_lemma"
+Saved theorem _______ "FLAT_NATURAL_MERGEAUXILLARY_lemma"
+Saved theorem _______ "FLAT_NATURAL_MERGEADJACENT_lemma"
+Saved theorem _______ "FLAT_NATURAL_MERGEALL_lemma"
+Saved theorem _______ "CORRECTNESS_MSET_NATURAL_MERGESORT"
+Exporting theory "natural_mergesortCorrectness" ... done.
+Theory "natural_mergesortCorrectness" took 1.4s to build

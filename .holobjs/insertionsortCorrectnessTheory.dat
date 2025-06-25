@@ -1,5 +1,5 @@
 (theory
- (("insertionsortCorrectness" "1750299232" "517373")
+ (("insertionsortCorrectness" "1750830016" "768343")
   ("container" "1749106690" "414220"))
  (core-data
   (tables

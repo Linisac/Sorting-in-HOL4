@@ -7,4 +7,4 @@ Saved theorem _______ "CORRECTNESS_SORTED_INSERTIONSORT_thm"
 Saved theorem _______ "MSET_INSERTION_AUXILLARY_lemma"
 Saved theorem _______ "CORRECTNNESS_MSET_INSERTSORT"
 Exporting theory "insertionsortCorrectness" ... done.
-Theory "insertionsortCorrectness" took 0.51876s to build
+Theory "insertionsortCorrectness" took 0.50160s to build

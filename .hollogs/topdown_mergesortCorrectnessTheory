@@ -9,4 +9,4 @@ Saved theorem _______ "CORRECTNESS_SORTED_TOP_DOWN_MERGESORT_thm"
 Saved theorem _______ "MSET_MERGEAUXILLARY_lemma"
 Saved theorem _______ "CORRECTNESS_MSET_TOP_DOWN_MERGESORT_thm"
 Exporting theory "topdown_mergesortCorrectness" ... done.
-Theory "topdown_mergesortCorrectness" took 0.55464s to build
+Theory "topdown_mergesortCorrectness" took 0.57434s to build
