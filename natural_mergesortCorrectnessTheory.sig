@@ -4,6 +4,10 @@ sig
   
   (*  Definitions  *)
     val NATURAL_MERGESORT_def : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract0 : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract1 : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract2 : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_primitive : thm
     val NATURAL_MERGE_ASC_RUNS_DESC_def_UNION_extract0 : thm
     val NATURAL_MERGE_ASC_RUNS_DESC_def_UNION_extract1 : thm
     val NATURAL_MERGE_ASC_RUNS_DESC_def_UNION_extract2 : thm
@@ -12,6 +16,7 @@ sig
   (*  Theorems  *)
     val CORRECTNESS_MSET_NATURAL_MERGESORT : thm
     val CORRECTNESS_SORTED_NATURAL_MERGESORT : thm
+    val EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm : thm
     val EVERY_SORTED_ASC_RUNS_DESC_lemma : thm
     val FLAT_NATURAL_MERGEADJACENT_lemma : thm
     val FLAT_NATURAL_MERGEALL_lemma : thm
@@ -24,6 +29,8 @@ sig
     val NATURAL_MERGEALL_ind : thm
     val NATURAL_MERGEAUXILLARY_def : thm
     val NATURAL_MERGEAUXILLARY_ind : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_def : thm
+    val NATURAL_MERGE_ASC_RUNS_DESC'_ind : thm
     val NATURAL_MERGE_ASC_RUNS_DESC_def : thm
     val NATURAL_MERGE_ASC_RUNS_DESC_ind : thm
     val SORTED_NATURAL_MERGEADJACENT_lemma : thm
@@ -34,7 +41,79 @@ sig
    
    [NATURAL_MERGESORT_def]  Definition
       
-      ⊢ ∀R xs. natural_mergesort R xs = natural_mergeall R (runs R xs)
+      ⊢ ∀R xs. natural_mergesort R xs = natural_mergeall R (runs' R xs)
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract0]  Definition
+      
+      ⊢ ∀x x0 x1 x2.
+          asc' x x0 x1 x2 =
+          NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION (INL (x,x0,x1,x2))
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract1]  Definition
+      
+      ⊢ ∀x x0.
+          runs' x x0 =
+          NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION (INR (INL (x,x0)))
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract2]  Definition
+      
+      ⊢ ∀x x0 x1 x2.
+          desc' x x0 x1 x2 =
+          NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION (INR (INR (x,x0,x1,x2)))
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_primitive]  Definition
+      
+      ⊢ NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION =
+        WFREC
+          (@R'.
+             WF R' ∧
+             (∀bs as b a R.
+                R a b ⇒ R' (INL (R,b,as ∘ CONS a,bs)) (INL (R,a,as,b::bs))) ∧
+             (∀as bs b a R.
+                ¬R a b ⇒ R' (INR (INL (R,b::bs))) (INL (R,a,as,b::bs))) ∧
+             (∀xs b a R.
+                ¬R a b ⇒
+                R' (INR (INR (R,b,[a],xs))) (INR (INL (R,a::b::xs)))) ∧
+             (∀xs b a R.
+                ¬¬R a b ⇒ R' (INL (R,b,CONS a,xs)) (INR (INL (R,a::b::xs)))) ∧
+             (∀as bs b a R.
+                ¬¬R a b ⇒
+                R' (INR (INL (R,b::bs))) (INR (INR (R,a,as,b::bs)))) ∧
+             ∀bs as b a R.
+               ¬R a b ⇒
+               R' (INR (INR (R,b,a::as,bs))) (INR (INR (R,a,as,b::bs))))
+          (λNATURAL_MERGE_ASC_RUNS_DESC'_def_UNION a'.
+               case a' of
+                 INL (R,a,as,[]) => I [as [a]]
+               | INL (R,a,as,b::bs) =>
+                 I
+                   (if R a b then
+                      NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                        (INL (R,b,as ∘ CONS a,bs))
+                    else
+                      as [a]::
+                        NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                          (INR (INL (R,b::bs))))
+               | INR (INL (R',[])) => I []
+               | INR (INL (R',[a''])) => I [[a'']]
+               | INR (INL (R',a''::b'::xs)) =>
+                 I
+                   (if (¬R' a'' b') then
+                      NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                        (INR (INR (R',b',[a''],xs)))
+                    else
+                      NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                        (INL (R',b',CONS a'',xs)))
+               | INR (INR (R'',a'³',as',[])) => I [a'³'::as']
+               | INR (INR (R'',a'³',as',b''::bs')) =>
+                 I
+                   (if (¬R'' a'³' b'') then
+                      NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                        (INR (INR (R'',b'',a'³'::as',bs')))
+                    else
+                      (a'³'::as')::
+                        NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION
+                          (INR (INL (R'',b''::bs')))))
    
    [NATURAL_MERGE_ASC_RUNS_DESC_def_UNION_extract0]  Definition
       
@@ -115,6 +194,13 @@ sig
    [CORRECTNESS_SORTED_NATURAL_MERGESORT]  Theorem
       
       ⊢ ∀R xs. transitive R ∧ total R ⇒ SORTED R (natural_mergesort R xs)
+   
+   [EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm]  Theorem
+      
+      ⊢ (∀R a as bs as'.
+           (∀xs. as' xs = as ⧺ xs) ⇒ asc R a as bs = asc' R a as' bs) ∧
+        (∀R xs. runs R xs = runs' R xs) ∧
+        ∀R a as bs. desc R a as bs = desc' R a as bs
    
    [EVERY_SORTED_ASC_RUNS_DESC_lemma]  Theorem
       
@@ -202,6 +288,38 @@ sig
                (¬R x y ⇒ P R (x::xs) ys) ∧ (R x y ⇒ P R xs (y::ys)) ⇒
                P R (x::xs) (y::ys)) ⇒
             ∀v v1 v2. P v v1 v2
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_def]  Theorem
+      
+      ⊢ (∀bs b as a R.
+           asc' R a as (b::bs) =
+           if R a b then asc' R b (as ∘ CONS a) bs
+           else as [a]::runs' R (b::bs)) ∧
+        (∀as a R. asc' R a as [] = [as [a]]) ∧
+        (∀xs b a R.
+           runs' R (a::b::xs) =
+           if ¬R a b then desc' R b [a] xs else asc' R b (CONS a) xs) ∧
+        (∀x R. runs' R [x] = [[x]]) ∧ (∀R. runs' R [] = []) ∧
+        (∀bs b as a R.
+           desc' R a as (b::bs) =
+           if ¬R a b then desc' R b (a::as) bs
+           else (a::as)::runs' R (b::bs)) ∧
+        ∀as a R. desc' R a as [] = [a::as]
+   
+   [NATURAL_MERGE_ASC_RUNS_DESC'_ind]  Theorem
+      
+      ⊢ ∀P0 P1 P2.
+          (∀R a as b bs.
+             (¬R a b ⇒ P1 R (b::bs)) ∧ (R a b ⇒ P0 R b (as ∘ CONS a) bs) ⇒
+             P0 R a as (b::bs)) ∧ (∀R a as. P0 R a as []) ∧
+          (∀R a b xs.
+             (¬¬R a b ⇒ P0 R b (CONS a) xs) ∧ (¬R a b ⇒ P2 R b [a] xs) ⇒
+             P1 R (a::b::xs)) ∧ (∀R x. P1 R [x]) ∧ (∀R. P1 R []) ∧
+          (∀R a as b bs.
+             (¬¬R a b ⇒ P1 R (b::bs)) ∧ (¬R a b ⇒ P2 R b (a::as) bs) ⇒
+             P2 R a as (b::bs)) ∧ (∀R a as. P2 R a as []) ⇒
+          (∀v0 v1 v2 v3. P0 v0 v1 v2 v3) ∧ (∀v0 v1. P1 v0 v1) ∧
+          ∀v0 v1 v2 v3. P2 v0 v1 v2 v3
    
    [NATURAL_MERGE_ASC_RUNS_DESC_def]  Theorem
       

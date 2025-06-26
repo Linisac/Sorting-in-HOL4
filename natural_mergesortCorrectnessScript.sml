@@ -47,17 +47,28 @@ Termination
 End
 
 Definition NATURAL_MERGE_ASC_RUNS_DESC_def:
+  (*
+    runs will partition a list into sublists of ascending and descending sequences.
+    We do this so that we get the best case when we pass it into natural_mergeall
+
+    Performance issues from (++) in asc.
+    See the equivalence theorem with the efficient version below.
+  *)
+
+  (* asc :: ('a -> 'a -> bool) -> 'a -> 'a List -> 'a List -> 'a List List *)
   (asc R a as (b::bs) =
     if R a b then asc R b (as ++ [a]) bs
     else (as ++ [a]) :: (runs R (b::bs))) /\
   (asc R a as [] = [as ++ [a]])
   /\
+  (* runs :: ('a -> 'a -> bool) -> 'a List -> 'a List List *)
   (runs R (a::b::xs) =
     if ~(R a b) then desc R b [a] xs
     else asc R b [a] xs) /\
   (runs R [x] = [[x]]) /\
   (runs R [] = [])
   /\
+  (* desc :: ('a -> 'a -> bool) -> 'a -> 'a List -> 'a List -> 'a List List *)
   (desc R a as (b::bs) =
     if ~(R a b) then desc R b (a::as) bs
     else (a::as) :: runs R (b::bs)) /\
@@ -71,19 +82,67 @@ Termination
   rw[]
 End
 
+Definition NATURAL_MERGE_ASC_RUNS_DESC'_def:
+  (* asc' :: ('a -> 'a -> bool) -> 'a -> ('a List -> 'a List) -> 'a List -> 'a List List *)
+  (asc' R a as (b::bs) =
+    if R a b then asc' R b (as o CONS a) bs
+    else as [a] :: (runs' R (b::bs)) ) /\
+  (asc' R a as [] = [ (as [a]) ])
+  /\
+  (* runs' :: ('a -> 'a -> bool) -> 'a List -> 'a List List *)
+  (runs' R (a::b::xs) =
+    if ~(R a b) then desc' R b [a] xs
+    else asc' R b (CONS a) xs) /\
+  (runs' R [x] = [[x]]) /\
+  (runs' R [] = [])
+  /\
+  (* desc' :: ('a -> 'a -> bool) -> 'a -> 'a List -> 'a List -> 'a List List *)
+  (desc' R a as (b::bs) = 
+    if ~(R a b) then 
+      desc' R b (a::as) bs
+    else
+      (a::as) :: runs' R (b::bs)) /\
+  (desc' R a as [] = [a::as]) 
+Termination
+  WF_REL_TAC `measure (\x. case x of
+    | INL (R,a,as,l) => LENGTH l + 1
+    | INR (INL (R, l)) => LENGTH l
+    | INR (INR (R,a, as, l)) => LENGTH l + 1)` >>
+  rw[]
+End
+
 Definition NATURAL_MERGESORT_def:
-  natural_mergesort R xs = natural_mergeall R (runs R xs)
+  natural_mergesort R xs = natural_mergeall R (runs' R xs)
 End
 (* END :: Natural mergesort definitions *)
+
+
+(* START :: Equivalence theorem for merge_asc_runs_desc *)
+Theorem EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm:
+  (!(R : 'a -> 'a -> bool) a as bs as'.  
+    (!xs. (as' xs) = as ++ xs) 
+    ==> (asc R a as bs = asc' R a as' bs)) /\
+  (!(R : 'a -> 'a -> bool) (xs : 'a list). runs R xs = runs' R xs) /\
+  (!(R : 'a -> 'a -> bool) a as bs. desc R a as bs = desc' R a as bs)
+Proof
+  ho_match_mp_tac NATURAL_MERGE_ASC_RUNS_DESC_ind >>
+  rpt strip_tac >>
+  simp[NATURAL_MERGE_ASC_RUNS_DESC_def, NATURAL_MERGE_ASC_RUNS_DESC'_def]
+  >- (rw[])
+  >- (
+    rw[] >>fs[]
+  )
+QED
+(* END :: Equivalence theorem for merge_asc_runs_desc *)
 
 (* START :: Natural mergesort correctness sortedness theorems *)
 Theorem EVERY_SORTED_ASC_RUNS_DESC_lemma:
   (* EFFICIENCY NOTICE :: use of ++ instead of the suggested (a:) compositions *)
   (!(R:'a -> 'a -> bool) a as bs.
     (transitive R /\ total R /\ SORTED R (as ++ [a]) ==>
-    EVERY (SORTED R) (asc R a as bs))) ∧
+    EVERY (SORTED R) (asc R a as bs))) /\
   (!(R:'a -> 'a -> bool) xs.
-    ((total R /\ transitive R) ==> EVERY (SORTED R) (runs R xs))) ∧
+    ((total R /\ transitive R) ==> EVERY (SORTED R) (runs R xs))) /\
   (!(R:'a -> 'a -> bool) a as bs.
     transitive R /\ total R /\ SORTED R (a::as) ==>
     EVERY (SORTED R) (desc R a as bs))
@@ -184,6 +243,16 @@ Theorem CORRECTNESS_SORTED_NATURAL_MERGESORT:
   !R xs. (transitive R /\ total R) ==> SORTED R (natural_mergesort R xs)
 Proof
   simp[NATURAL_MERGESORT_def] >>
+  rw[SORTED_NATURAL_MERGEALL_lemma] >>
+  simp[GSYM EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm] >>
+  simp[EVERY_SORTED_ASC_RUNS_DESC_lemma]
+QED
+
+(*
+Theorem CORRECTNESS_SORTED_NATURAL_MERGESORT:
+  !R xs. (transitive R /\ total R) ==> SORTED R (natural_mergesort R xs)
+Proof
+  simp[NATURAL_MERGESORT_def] >>
   rpt strip_tac >>
   Induct_on `xs`
   >- (simp[NATURAL_MERGE_ASC_RUNS_DESC_def, NATURAL_MERGEALL_def])
@@ -209,6 +278,7 @@ Proof
         )
     )
 QED
+*)
 (* END :: Natural mergesort correctness sortedness theorems *)
 
 (* START :: Natural mergesort correctness mset theorems *)
@@ -302,7 +372,7 @@ Proof
   simp[NATURAL_MERGESORT_def] >>
   rw[FLAT_NATURAL_MERGEALL_lemma] >>
   qspecl_then [`R`,`xs`] assume_tac (CONJUNCT1 (CONJUNCT2 MSET_FLAT_ASC_RUNS_DESC_lemma)) >>
-  fs[]
+  fs[EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm]
 QED
 (* END :: Natural mergesort correctness mset theorems *)
 

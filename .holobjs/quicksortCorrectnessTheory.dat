@@ -1,6 +1,6 @@
 (theory
- (("quicksortCorrectness" "1750830016" "860311")
-  ("container" "1749106690" "414220"))
+ (("quicksortCorrectness" "1750924119" "428783")
+  ("container" "1750907240" "926759"))
  (core-data
   (tables
    (string-table "min" "fun" "bool" "list" "!" "/\\" "=" "num" "==>"

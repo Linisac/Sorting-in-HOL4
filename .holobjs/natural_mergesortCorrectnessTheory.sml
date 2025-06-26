@@ -45,6 +45,24 @@ struct
   fun op NATURAL_MERGE_ASC_RUNS_DESC_def _ = ()
   val op NATURAL_MERGE_ASC_RUNS_DESC_def = TDB.find
     "NATURAL_MERGE_ASC_RUNS_DESC_def"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_ind _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_ind = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_ind"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_primitive _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_primitive = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_primitive"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract2 _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract2 = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract2"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract1 _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract1 = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract1"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract0 _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract0 = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_def_UNION_extract0"
+  fun op NATURAL_MERGE_ASC_RUNS_DESC'_def _ = ()
+  val op NATURAL_MERGE_ASC_RUNS_DESC'_def = TDB.find
+    "NATURAL_MERGE_ASC_RUNS_DESC'_def"
   fun op NATURAL_MERGESORT_def _ = ()
   val op NATURAL_MERGESORT_def = TDB.find "NATURAL_MERGESORT_def"
   fun op NATURAL_MERGEAUXILLARY_ind _ = ()
@@ -77,6 +95,9 @@ struct
   fun op EVERY_SORTED_ASC_RUNS_DESC_lemma _ = ()
   val op EVERY_SORTED_ASC_RUNS_DESC_lemma = TDB.find
     "EVERY_SORTED_ASC_RUNS_DESC_lemma"
+  fun op EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm _ = ()
+  val op EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm = TDB.find
+    "EQUIV_NATURAL_MERGE_ASC_RUNS_DESC_thm"
   fun op CORRECTNESS_SORTED_NATURAL_MERGESORT _ = ()
   val op CORRECTNESS_SORTED_NATURAL_MERGESORT = TDB.find
     "CORRECTNESS_SORTED_NATURAL_MERGESORT"
