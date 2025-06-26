@@ -1,0 +1,10 @@
+<<HOL message: Created theory "insertionsortCorrectness">>
+Saved definition ____ "INSERTION_AUXILLARY_def"
+Saved definition ____ "INSERTIONSORT_def"
+Saved theorem _______ "MEM_INSERTIONAUXILLARY_lemma"
+Saved theorem _______ "SORTED_INSERTIONAUXILLARY_lemma"
+Saved theorem _______ "CORRECTNESS_SORTED_INSERTIONSORT_thm"
+Saved theorem _______ "MSET_INSERTION_AUXILLARY_lemma"
+Saved theorem _______ "CORRECTNNESS_MSET_INSERTSORT"
+Exporting theory "insertionsortCorrectness" ... done.
+Theory "insertionsortCorrectness" took 0.51055s to build

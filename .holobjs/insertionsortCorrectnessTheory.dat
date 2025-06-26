@@ -1,0 +1,70 @@
+(theory
+ (("insertionsortCorrectness" "1750924119" "280475")
+  ("container" "1750907240" "926759"))
+ (core-data
+  (tables
+   (string-table "min" "fun" "bool" "list" "!" "/\\" "=" "num" "==>" "COND"
+    "CONS" "IN" "container" "LIST_TO_BAG" "LIST_TO_SET" "NIL" "sorting"
+    "SORTED" "\\/" "insertionsortCorrectness" "insertionAuxillary"
+    "insertionsort" "relation" "total" "transitive"
+    "SORTED_INSERTIONAUXILLARY_lemma" "MSET_INSERTION_AUXILLARY_lemma"
+    "MEM_INSERTIONAUXILLARY_lemma" "INSERTION_AUXILLARY_def"
+    "INSERTIONSORT_def" "CORRECTNNESS_MSET_INSERTSORT"
+    "CORRECTNESS_SORTED_INSERTIONSORT_thm" "sat" "" "home" "etranger"
+    "GitScripts" "Dev" "Sorting-in-HOL4"
+    "insertionsortCorrectnessScript.sml" "bag" "pred_set")
+   (id-table (0 . 1) (0 . 2) (3 . 3) (2 . 4) (2 . 5) (0 . 6) (7 . 7)
+    (0 . 8) (2 . 9) (3 . 10) (2 . 11) (12 . 13) (3 . 14) (3 . 15) (16 . 17)
+    (2 . 18) (19 . 20) (19 . 21) (22 . 23) (22 . 24))
+   (type-table (1) "'a" (0 1 0) (0 1 2) (2 1) (0 2 0) (0 3 0) (0 6 0)
+    (0 4 0) (0 8 0) (0 0 0) (0 0 10) (6) (0 1 12) (0 13 0) (0 13 14)
+    (0 4 8) (0 4 4) (0 4 17) (0 0 18) (0 1 17) (0 1 5) (0 4 13) (0 4 2)
+    (0 3 8) (0 3 20) (0 3 17) (0 1 8) (0 3 27) (0 28 0) (0 29 0) (0 24 0)
+    (0 31 0))
+   (term-table ("R" 3) ("e" 1) ("x" 1) ("xs" 4) ("y" 1) ("ys" 4) (3 5)
+    (3 7) (3 9) (4 11) (5 11) (5 15) (5 16) (7 11) (8 19) (9 20) (10 21)
+    (11 22) (12 23) (13 4) (14 24) (15 11) (16 25) (17 26) (18 6) (19 6)
+    ("P" 28) ("P" 24) ("h" 1) ("l" 4) ("t" 4) (3 30) (3 32))) exports (nil)
+  (nil)
+  ((25
+    (((19 3)
+      (2 2 14 15 25 26 27 29 47 50 51 52 54 56 58 63 64 73 75 83 84 99 100
+       102 105 125) (19 0 2) (3 59 155) (22 6)
+      (32 1 3 5 6 7 11 12 13 14 15 17 18) (16 35 38)) "DISK_THM")
+    (2 0 1 37 33 34 35 36 37 38 39)
+    ("%0U24%0U25B9%0%0%2B22%3@B20%0%3B20B10B13"))
+   (26
+    (((19 5) (40 35 36 199) (2 14 25 26 27 29 50 52 54 55 56 63 64) (12 11)
+      (19 0) (3 59) (32 1 3 5 6 7 11 14 17 18 19 20 23)) "DISK_THM")
+    (2 0 1 79 33 34 35 36 37 38 39) ("%0%2B22%3@U17%2%3B15U17B11"))
+   (27
+    (((19 2) (2 14 18 25 26 27 29 51 52 54 55 56 63 64) (19 0)
+      (3 28 59 155) (41 18 121)
+      (32 1 3 5 6 7 11 12 13 14 15 17 18 19 20 23)) "DISK_THM")
+    (2 0 1 21 33 34 35 36 37 38 39)
+    ("%1%0%2B22%3@U18B16%1%2%19B15U18B16%1%3U18B16B21B10"))
+   (28 (((19 0) (3 693)) "DISK_THM") (1 0 1 7 33 34 35 36 37 38 39)
+    ("%0%2$1$0B22%19@$0%19B15B12|U6|U7%0%2%4%5$3$2B22$1$0B15@$2$1b3$2$1$0B15B15B14$1$3$2B22$0@B15@B12|U8|U6|U6|U7B9"))
+   (29 (((19 1) (3 693)) "DISK_THM") (1 0 1 14 33 34 35 36 37 38 39)
+    ("%0$0%19B23%19B12|U7%0%2%3$2$1$0B15B23$2$1B22$2$0B23@B12|U8|U6|U7B9"))
+   (30 (((19 6) (40 35) (2 14 25 56) (12 11) (19 1 5) (3 59)) "DISK_THM")
+    (2 0 1 92 33 34 35 36 37 38 39) ("%0%3B23U17%3U17B11"))
+   (31 (((19 4) (2 14 25 35 50 63 105) (19 1 3) (3 59) (16 35)) "DISK_THM")
+    (2 0 1 64 33 34 35 36 37 38 39) ("%0U24%0U25B9%0%0%3B23B20B13"))))
+ (incorporate (incorporate-types) incorporate-consts ("insertionsort" . 26)
+  ("insertionAuxillary" . 25))
+ (loadable-thydata
+  ("userdef.deltas" (tag-knm 19 . 28) (tag-knm 19 . 28) (tag-knm 19 . 29)
+   (tag-knm 19 . 29))
+  ("grammardelta" (OO "insertionAuxillary" (tag-tm . "%22"))
+   (OO "insertionsort" (tag-tm . "%23")))
+  ("compute" (tag-knm 19 . 28) (tag-knm 19 . 29))
+  ("DefnBase.indn.deltas"
+   ((tag-th
+     ("insertionsortCorrectness" 7 (("bool" 26) ("list" 59)) ("DISK_THM"))
+     "%26%0%2$1$0b2%19@|U6|U7%30%28%0%2%0%2$1$0b6$5@|U6|U7$1$0b4$2$3B15@B13|U6|U7|U6|U8B9%0%2%29$2$1b3$0@|U8|U6|U7B13|U31")
+    (tag-tm . "%22"))
+   ((tag-th
+     ("insertionsortCorrectness" 8 (("bool" 26) ("list" 59)) ("DISK_THM"))
+     "%27%0$0%19b1|U7%30%28%0%0$0$3b4|U7$0$1$2B15b3B13|U7|U6|U8B9%0%29$1$0b2|U8|U7B13|U32")
+    (tag-tm . "%23")))))

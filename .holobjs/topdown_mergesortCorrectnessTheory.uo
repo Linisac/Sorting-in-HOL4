@@ -1,0 +1,12 @@
+/home/etranger/GitScripts/Dev/Sorting-in-HOL4/topdown_mergesortCorrectnessTheory
+/home/etranger/GitScripts/Dev/Sorting-in-HOL4/topdown_mergesortCorrectnessTheory
+$(HOLDIR)/sigobj/Globals
+$(HOLDIR)/sigobj/Overlay
+$(HOLDIR)/sigobj/Symtab
+$(HOLDIR)/sigobj/Term
+$(HOLDIR)/sigobj/Theory
+$(HOLDIR)/sigobj/TheoryReader
+$(HOLDIR)/sigobj/Thm
+$(HOLDIR)/sigobj/Type
+$(HOLDIR)/sigobj/containerTheory
+/home/etranger/GitScripts/Dev/Sorting-in-HOL4/topdown_mergesortCorrectnessTheory.sml

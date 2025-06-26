@@ -1,0 +1,8 @@
+<<HOL message: Created theory "quicksortCorrectness">>
+Saved definition ____ "QUICKSORT_def"
+Saved induction _____ "QUICKSORT_ind"
+Saved theorem _______ "MEM_QUICKSORT_lemma"
+Saved theorem _______ "CORRECTNESS_SORTED_QUICKSORT_thm"
+Saved theorem _______ "CORRECTNESS_MSET_QUICKSORT_thm"
+Exporting theory "quicksortCorrectness" ... done.
+Theory "quicksortCorrectness" took 0.40293s to build
